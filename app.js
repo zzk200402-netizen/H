@@ -27,7 +27,32 @@ async function showReader(id,token,start){const item=book.chapters.find(c=>c.id=
 function saveBeforeNavigation(e){const a=e.target.closest?.('a[href^="#"]');if(a&&!e.ctrlKey&&!e.metaKey&&!e.shiftKey&&a.hash!==location.hash){savePosition();navigationSaved=true;}}
 document.addEventListener('click',saveBeforeNavigation,true);
 document.addEventListener('keydown',e=>{if(e.key==='Enter')saveBeforeNavigation(e);},true);
-async function route(){if(!navigationSaved)savePosition();navigationSaved=false;current=null;const token=++routeToken;const hash=location.hash.slice(1)||'home';window.scrollTo(0,0);try{if(hash==='home')showHome();else if(hash==='toc')showToc();else if(hash.startsWith('read/')){const [id,q]=hash.slice(5).split('?');await showReader(id,token,q==='start');}else{location.hash='home';return;}}catch{if(token!==routeToken)return;const e=node('section','error');e.append(node('h1','','这一页还未下载'),node('p','','连接网络后重试，或返回已经缓存的章节。'),link('返回目录','toc','button'));main.replaceChildren(e);}if(token===routeToken)main.focus({preventScroll:true});}
+async function route(){
+  if(!navigationSaved)savePosition();
+  navigationSaved=false;
+  current=null;
+  const token=++routeToken;
+  const hash=location.hash.slice(1)||'home';
+  window.scrollTo(0,0);
+  try{
+    if(hash==='home')showHome();
+    else if(hash==='toc')showToc();
+    else if(hash.startsWith('read/')){
+      const [id,q]=hash.slice(5).split('?');
+      await showReader(id,token,q==='start');
+    }else{location.hash='home';return;}
+  }catch{
+    if(token!==routeToken)return;
+    const e=node('section','error');
+    e.append(node('h1','','这一页还未下载'),node('p','','连接网络后重试，或返回已经缓存的章节。'),link('返回目录','toc','button'));
+    main.replaceChildren(e);
+    return;
+  }
+  if(token===routeToken&&(!hash.startsWith('read/')||current)){
+    main.focus({preventScroll:true});
+    window.buhuanAnalytics?.page(hash,document.title);
+  }
+}
 window.addEventListener('hashchange',route);window.addEventListener('scroll',()=>{clearTimeout(scrollTimer);scrollTimer=setTimeout(savePosition,250);},{passive:true});window.addEventListener('pagehide',savePosition);
 window.addEventListener('beforeinstallprompt',e=>{e.preventDefault();installPrompt=e;$('#install').hidden=false;});
 $('#install').onclick=async()=>{if(installPrompt){await installPrompt.prompt();installPrompt=null;$('#install').hidden=true;}};
