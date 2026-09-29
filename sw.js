@@ -1,4 +1,4 @@
-const VERSION="af39d7cdd4ae22b1";
+const VERSION="4c897dcba4b64d81";
 const SHELL='buhuan-shell-'+VERSION;
 const CONTENT='buhuan-content-'+VERSION;
 const URLS=["./", "index.html", "style.css", "app.js", "manifest.webmanifest", "favicon.svg", "icon-192.png", "icon-512.png", "offline-files.json", "data/book.json"];
