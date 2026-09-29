@@ -1,0 +1,15 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="theme-color" content="#f5f1e8"><meta name="description" content="《不还》小说阅读器，支持章节目录、阅读设置与离线阅读。">
+<link rel="manifest" href="manifest.webmanifest"><link rel="icon" href="favicon.svg" type="image/svg+xml"><link rel="apple-touch-icon" href="icon-192.png">
+<link rel="stylesheet" href="style.css"><title>不还 · 阅读</title>
+</head>
+<body>
+<header class="site-header"><a href="#home" class="wordmark">不还<span>小说阅读</span></a><nav aria-label="主导航"><a href="#toc">目录</a><button id="settings-open" aria-label="打开阅读设置">阅读设置</button></nav></header>
+<main id="main" tabindex="-1" aria-live="polite"><p class="loading">正在打开《不还》…</p></main>
+<footer class="site-footer"><div id="offline-state" role="status">正在检查离线内容…</div><progress id="offline-progress" max="100" value="0" aria-label="离线准备进度" hidden></progress><button id="offline-toggle" hidden>暂停</button><button id="install" hidden>安装到主屏幕</button><p class="install-note" id="install-note" hidden>可在浏览器菜单中选择“添加到主屏幕”；离线阅读需等待内容准备完成。</p></footer>
+<dialog id="settings"><form method="dialog" class="dialog-head"><h2>阅读设置</h2><button aria-label="关闭阅读设置">关闭</button></form><div class="settings-body"><div class="setting-row"><span>字号</span><div><button id="font-minus" aria-label="减小字号">A−</button><output id="font-output">20</output><button id="font-plus" aria-label="增大字号">A+</button></div></div><label class="setting-row">行距<select id="line-height"><option value="1.6">紧凑</option><option value="1.9">舒适</option><option value="2.2">宽松</option></select></label><fieldset><legend>阅读背景</legend><div class="theme-options"><button type="button" data-theme="paper">米白</button><button type="button" data-theme="white">白色</button><button type="button" data-theme="green">浅绿</button><button type="button" data-theme="night">夜间</button></div></fieldset><p class="hint">设置和阅读位置保存在当前设备。</p></div></dialog>
+<script src="app.js" defer></script>
+</body></html>
